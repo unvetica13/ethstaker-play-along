@@ -5,19 +5,19 @@
 
   if(isset($_SESSION['key']))
   {
-    if(@$_GET['demail'] && $_SESSION['key']=='suryapinky') 
+    if(@$_GET['email'] && $_SESSION['key']=='ethstakercc') 
     {
       $demail=@$_GET['demail'];
-      $r1 = mysqli_query($con,"DELETE FROM rank WHERE email='$demail' ") or die('Error');
-      $r2 = mysqli_query($con,"DELETE FROM history WHERE email='$demail' ") or die('Error');
-      $result = mysqli_query($con,"DELETE FROM user WHERE email='$demail' ") or die('Error');
+      $r1 = mysqli_query($con,"DELETE FROM rank WHERE email='$email' ") or die('Error');
+      $r2 = mysqli_query($con,"DELETE FROM history WHERE email='$email' ") or die('Error');
+      $result = mysqli_query($con,"DELETE FROM user WHERE email='$email' ") or die('Error');
       header("location:dashboard.php?q=1");
     }
   }
 
   if(isset($_SESSION['key']))
   {
-    if(@$_GET['q']== 'rmquiz' && $_SESSION['key']=='suryapinky') 
+    if(@$_GET['q']== 'rmquiz' && $_SESSION['key']=='ethstakercc') 
     {
       $eid=@$_GET['eid'];
       $result = mysqli_query($con,"SELECT * FROM questions WHERE eid='$eid' ") or die('Error');
@@ -51,7 +51,7 @@
 
   if(isset($_SESSION['key']))
   {
-    if(@$_GET['q']== 'addqns' && $_SESSION['key']=='suryapinky') 
+    if(@$_GET['q']== 'addqns' && $_SESSION['key']=='ethstakercc') 
     {
       $n=@$_GET['n'];
       $eid=@$_GET['eid'];

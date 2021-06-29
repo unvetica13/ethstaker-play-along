@@ -24,8 +24,13 @@
 		
 		if((mysqli_num_rows($result))>0)	
 		{
-            echo "<center><h3><script>alert('Sorry.. This email is already registered !!');</script></h3></center>";
-            header("refresh:0;url=login.php");
+            $_SESSION['logged']=$email;
+			$row=mysqli_fetch_array($result);
+			$_SESSION['name']=$row[1];
+			$_SESSION['id']=$row[0];
+			$_SESSION['email']=$row[2];
+			$_SESSION['password']=$row[3];
+			header('location: welcome.php?q=1'); 	
         }
 		else
 		{
@@ -48,7 +53,7 @@
     <meta name='robots' content='index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1' />
 
     <!-- This site is optimized with the Yoast SEO plugin v16.2 - https://yoast.com/wordpress/plugins/seo/ -->
-    <title>Devcon Register - ethstaker.cc</title>
+    <title>Devcon Trivia Play Along - ethstaker.cc</title>
     <link rel="canonical" href="https://ethstaker.cc/event-calendar/" />
 
     <link  rel="stylesheet" href="css/bootstrap.min.css"/>
@@ -760,7 +765,7 @@
    <!-- LIVE YOUTUBE AND QUESTIONAIRE -->
 
 
-    <div class="content-block" style="margin-bottom: 150px; margin-top: 150px;">
+    <div class="content-block" style="margin-bottom: 60px; margin-top: 150px;">
         <div class="page-container container span-col-md-12">
             <div class="row">
 
@@ -768,8 +773,7 @@
                     <div class="entry-content clearfix" role="main">
                         <article>
 
-                            <iframe width="400" height="300" src="https://www.youtube.com/embed/IACYJUWwyb8?list=PLOB9GGXGcc32kPrkly3TLuEfk9pJuiUVW" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                            
+                        <iframe class="modest-vid-embed__item" width="500" height="325" src="https://www.youtube.com/embed/IACYJUWwyb8?mute=1&autoplay=1&modestbranding=1&loop=1&rel=0&amp;controls=1&amp;showinfo=0&playlist=IACYJUWwyb8" frameborder="0" allowfullscreen></iframe>
                         </article>
                     </div>
                 </div>
@@ -787,7 +791,7 @@
 												<input type="text" name="name" class="form-control" required />
 											</div>
 											<div class="form-group">
-												<label>Enter Your Email Id:</label>
+												<label>Enter Your Email:</label>
 												<input type="email" name="email" class="form-control" required />
 											</div>
 											<div class="form-group">
@@ -801,7 +805,7 @@
 											
 											
 											<div class="form-group text-right">
-												<button class="btn btn-primary btn-block" name="submit">Register Devcon Quiz</button>
+												<button class="btn btn-primary btn-block" name="submit">Register to Devcon Play Along</button>
 											</div>
 											<div class="form-group text-center">
 												<span class="text-muted">Already have an account! </span> <a href="login.php">Login </a> Here..
@@ -809,7 +813,8 @@
 										</form>
 									</div>
 								</div>
-							</div>
+                            </div>
+                            
 
                         </article>
                     </div>
@@ -818,6 +823,37 @@
                
 
             </div> 
+        </div>
+    </div>
+
+    <div class="row" style="display: flex; justify-content: center; margin-bottom: 80px;">
+        <div class="col-md-6">
+
+        <?php
+                                $q=mysqli_query($con,"SELECT * FROM rank ORDER BY score DESC " )or die('Error223');
+                                        echo  '<div class="panel title"><div class="table-responsive">
+                                        <table class="table table-striped title1" >
+                                        <tr style="color:white"><td style="background: #52cbf9;"><center><b>Rank</b></center></td><td style="background: #52cbf9;"><center><b>Name</b></center></td><td style="background: #52cbf9; display: none;"><center><b>Email</b></center></td><td style="background: #52cbf9;"><center><b>Score</b></center></td></tr>';
+                                        $c=0;
+
+                                        while($row=mysqli_fetch_array($q) )
+                                        {
+                                            $e=$row['email'];
+                                            $s=$row['score'];
+                                            $q12=mysqli_query($con,"SELECT * FROM user WHERE email='$e' " )or die('Error231');
+                                            while($row=mysqli_fetch_array($q12) )
+                                            {
+                                                $name=$row['name'];
+                                            }
+                                            $c++;
+                                            echo '<tr><td style="color:black"><center><b>'.$c.'</b></center></td><td><center>'.$name.'</center></td><td style="display: none;"><center>'.$e.'</center></td><td><center>'.$s.'</center></td></tr>';
+                                        }
+                                        echo '</table></div></div>';
+                            ?>
+
+
+
+        
         </div>
     </div>
 

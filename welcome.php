@@ -733,31 +733,39 @@
 
 
    <!-- header quiz -->
-   <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-        <ul class="nav navbar-nav navbar-left" style="margin-left: 140px;">
-            <li <?php if(@$_GET['q']==1) echo'class="active"'; ?> ><a href="welcome.php?q=1"><span class="glyphicon glyphicon-home" aria-hidden="true" style="font-size: 18px;"></span>&nbsp;Home<span class="sr-only">(current)</span></a></li>
-            <li <?php if(@$_GET['q']==2) echo'class="active"'; ?>> <a href="welcome.php?q=2"><span class="glyphicon glyphicon-list-alt" aria-hidden="true" style="font-size: 18px;"></span>&nbsp;History</a></li>
-            <li <?php if(@$_GET['q']==3) echo'class="active"'; ?>> <a href="welcome.php?q=3"><span class="glyphicon glyphicon-stats" aria-hidden="true" style="font-size: 18px;"></span>&nbsp;Ranking</a></li>
-            
-        </ul>
-        <ul class="nav navbar-nav navbar-right" style="margin-right: 110px;">
-        <li <?php echo''; ?> > <a href="logout.php?q=welcome.php"><span class="glyphicon glyphicon-log-out" aria-hidden="true" style="font-size: 18px;"></span>&nbsp;Log out</a></li>
-        </ul>
-    </div>
+   
 
    <!-- LIVE YOUTUBE AND QUESTIONAIRE -->
 
 
     <div class="content-block" style="margin-bottom: 150px;">
         <div class="page-container container span-col-md-12">
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-left" style="">
+                <li <?php if(@$_GET['q']==1) echo'class="active"'; ?> ><a href="welcome.php?q=1" style="color: black; font-size: 16px;"></span>&nbsp;Home<span class="sr-only" >(current)</span></a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right" style="">
+                <li <?php echo''; ?> > <a href="logout.php?q=welcome.php" style="color: black; margin-right: 20px; font-size: 16px;"></span>&nbsp;Log out</a></li>
+            </ul>
+        </div>
             <div class="row">
 
                 <div class="col-md-6">
                     <div class="entry-content clearfix" role="main">
                         <article>
 
-                            <iframe width="400" height="300" src="https://www.youtube.com/embed/IACYJUWwyb8?list=PLOB9GGXGcc32kPrkly3TLuEfk9pJuiUVW" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                             
+                            
+                                <article class="card">
+  <div class="modest-vid-embed modest-vid-embed--auto">
+    <div class="modest-vid-embed__wrapper">
+      <iframe class="modest-vid-embed__item" width="500" height="325" src="https://www.youtube.com/embed/IACYJUWwyb8?mute=1&autoplay=1&modestbranding=1&loop=1&rel=0&amp;controls=1&amp;showinfo=0&playlist=IACYJUWwyb8" frameborder="0" allowfullscreen></iframe>
+    </div>
+  </div>
+</article>      
+
+
+
                         </article>
                     </div>
                 </div>
@@ -780,7 +788,7 @@
                                 $q12=mysqli_query($con,"SELECT score FROM history WHERE eid='$eid' AND email='$email'" )or die('Error98');
                                 $rowcount=mysqli_num_rows($q12);	
                                 if($rowcount == 0){
-                                    echo '<tr><td><center>'.$c++.'</center></td><td><center>'.$title.'</center></td><td><center>'.$total.'</center></td><td><center>'.$sahi*$total.'</center></td><td><center><b><a href="welcome.php?q=quiz&step=2&eid='.$eid.'&n=1&t='.$total.'" class="btn sub1" style="color:white;margin:0px;width: 100%;border:none;background:#39db6d"><span class="glyphicon glyphicon-new-window" aria-hidden="true"></span>&nbsp;<span class="title1"><b>Start</b></span></a></b></center></td></tr>';
+                                    echo '<tr><td style="vertical-align: middle;"><center>'.$c++.'</center></td><td style="vertical-align: middle;"><center>'.$title.'</center></td><td style="vertical-align: middle;"><center>'.$total.'</center></td><td style="vertical-align: middle;"><center>'.$sahi*$total.'</center></td><td style="vertical-align: middle;"><center><b><a href="welcome.php?q=quiz&step=2&eid='.$eid.'&n=1&t='.$total.'" class="btn sub1" style="color:white;margin:0px;width: 100%;border:none;background:#1ec353"><span class="glyphicon glyphicon-new-window" aria-hidden="true"></span>&nbsp;<span class="title1"><b>Start</b></span></a></b></center></td></tr>';
                                 }
                                 else
                                 {
@@ -789,7 +797,29 @@
                                 }
                                 $c=0;
                                 echo '</table></div></div>';
+
+                                $q=mysqli_query($con,"SELECT * FROM rank ORDER BY score DESC " )or die('Error223');
+                                    echo  '<div class="panel title"><div class="table-responsive">
+                                    <table class="table table-striped title1" >
+                                    <tr style="color:white"><td style="background: #52cbf9;"><center><b>Rank</b></center></td><td style="background: #52cbf9;"><center><b>Name</b></center></td><td style="background: #52cbf9; display: none;"><center><b>Email</b></center></td><td style="background: #52cbf9;"><center><b>Score</b></center></td></tr>';
+                                    $c=0;
+
+                                    while($row=mysqli_fetch_array($q) )
+                                    {
+                                        $e=$row['email'];
+                                        $s=$row['score'];
+                                        $q12=mysqli_query($con,"SELECT * FROM user WHERE email='$e' " )or die('Error231');
+                                        while($row=mysqli_fetch_array($q12) )
+                                        {
+                                            $name=$row['name'];
+                                        }
+                                        $c++;
+                                        echo '<tr><td style="color:black"><center><b>'.$c.'</b></center></td><td><center>'.$name.'</center></td><td style="display: none;"><center>'.$e.'</center></td><td><center>'.$s.'</center></td></tr>';
+                                    }
+                                    echo '</table></div></div>';
                             }?>
+
+                            
 
                             <?php
                                 if(@$_GET['q']== 'quiz' && @$_GET['step']== 2) 

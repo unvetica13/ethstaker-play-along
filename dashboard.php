@@ -19,7 +19,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Dashboard | Online Quiz System</title>
+    <title>Devcon Trivia Play Along - ethstaker.cc</title>
     <link  rel="stylesheet" href="css/bootstrap.min.css"/>
     <link  rel="stylesheet" href="css/bootstrap-theme.min.css"/>    
     <link rel="stylesheet" href="css/welcome.css">
@@ -38,7 +38,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="Javascript:void(0)"><b>Online Quiz System</b></a>
+                <a class="navbar-brand" href="Javascript:void(0)"><b></b></a>
             </div>
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-left">
@@ -61,7 +61,7 @@
             <div class="col-md-12">
                 <?php if(@$_GET['q']==0)
                 {
-                   echo "<h1> WELCOME TO Admin Page!!
+                   echo "<h1> 
 					</h1>";
 					
                 }
