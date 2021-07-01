@@ -1,5 +1,5 @@
 <?php
-$con= new mysqli('play-along-app','masteradmin13','ywP7gD25KXr2','exam')or die("Could not connect to mysql".mysqli_error($con));
+$con= new mysqli('72.212.147.24','padbdev','luckyboy01','play-along-app')or die("Could not connect to mysql".mysqli_error($con));
 
 ?>
 
